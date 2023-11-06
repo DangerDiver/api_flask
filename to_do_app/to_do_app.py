@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
-
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "tasks.db")}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -13,6 +13,18 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     complete = db.Column(db.Boolean)
+
+
+@app.cli.command('db_create')
+def db_create():
+    db.create_all()
+    print("Database created!")
+
+
+@app.cli.command('db_drop')
+def db_drop():
+    db.drop_all()
+    print("Database dropped!")
 
 
 @app.route("/")
