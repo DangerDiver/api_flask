@@ -1,6 +1,6 @@
 # Task Reminder App
 
-This just a simple task reminder/ to-do list app built using Flask with a Jinja template.
+This just a simple task reminder / to-do list app built using Flask with a Jinja template.
 
 It will allow you to enter a task, defaulting to a "**Not Complete**" status.
 Once the task has been performed, you can click the ***Update*** button and that will update the status to ***Complete***
